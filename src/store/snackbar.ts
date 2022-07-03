@@ -28,13 +28,12 @@ export const snackbarModuleStore: Module<SnackbarState, any> = {
 	},
 	mutations: {
 		showSnackbar(state, payload) {
-			state.message = payload.message;
+			state.message = payload.message || '';
 			state.type = payload.type;
 			state.visible = true;
 		},
 		closeSnackbar(state) {
 			state.visible = false;
-			state.message = '';
 		},
 	},
 };
