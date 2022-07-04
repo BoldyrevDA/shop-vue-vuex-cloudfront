@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/HelloWorld.vue";
+import { VAppVersion } from "@/libs/version";
 
 describe("HelloWorld.vue", () => {
   it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
+    const ver = "0.0.1_alpha";
+    const wrapper = shallowMount(VAppVersion, {
+      propsData: { value: ver },
     });
-    expect(wrapper.text()).toMatch(msg);
+    expect(wrapper.text()).toMatch(ver);
   });
 });
