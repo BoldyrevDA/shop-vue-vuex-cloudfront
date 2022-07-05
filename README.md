@@ -1,6 +1,12 @@
 # shop-vue-vuex-cloudfront
 
-See `develop` branch for development
+***
+SPA for deploying on AWS
+
+Example of this deployed project:
+[CloudFront](https://d2baf3nfxoblrz.cloudfront.net/) and [S3-website](http://shop-site-bucket.s3-website-eu-west-1.amazonaws.com)
+
+***
 
 ## Project setup
 ```
@@ -32,5 +38,12 @@ npm run test:e2e
 npm run lint
 ```
 
+### Setup AWS environment and deploy
+```
+npm run cloudfront:update:build:deploy
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
