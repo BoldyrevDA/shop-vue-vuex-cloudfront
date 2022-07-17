@@ -1,6 +1,10 @@
 <template>
 	<div v-show="isErrorSnackbar">
-		<v-error-snackbar v-model="snackbar.visible" :message="snackbar.message" />
+		<v-error-snackbar
+			:value="snackbar.visible"
+			:message="snackbar.message"
+			@input="closeSnackbar"
+		/>
 	</div>
 </template>
 
@@ -22,6 +26,11 @@ export default Vue.extend({
 			const snackbar: SnackbarState = this.snackbar;
 
 			return snackbar.type === SnackbarType.Error;
+		},
+	},
+	methods: {
+		closeSnackbar() {
+			this.$store.commit('snackbar/closeSnackbar');
 		},
 	},
 });

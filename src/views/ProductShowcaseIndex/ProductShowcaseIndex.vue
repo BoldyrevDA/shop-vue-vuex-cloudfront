@@ -1,16 +1,21 @@
 <template>
-	<div class="grey lighten-5">
+	<div class="grey lighten-5 py-4">
 		<v-container>
 			<v-row>
 				<v-col
-					xs="12"
-					sm="6"
+					sm="12"
 					md="4"
-					col="3"
+					lg="3"
+					cols="auto"
 					v-for="(product, index) in products"
 					:key="product.id"
 				>
-					<v-card class="pa-2" data-test-id="product-card" outlined tile>
+					<v-card
+						class="pa-2"
+						data-test-id="product-card"
+						outlined
+						elevation="2"
+					>
 						<v-img
 							height="250"
 							:src="`https://source.unsplash.com/random?sig=${index}`"
@@ -18,10 +23,10 @@
 
 						<v-card-title>{{ product.title }}</v-card-title>
 						<v-card-text>
-							<p class="my-4 subtitle-1">
+							<p height="250" class="subtitle-2 text-truncate">
 								{{ product.description }}
 							</p>
-							<p>
+							<p class="ma-0">
 								{{
 									$t('products.dynamicPrice', {
 										price: formatPrice(product.price),
@@ -29,12 +34,13 @@
 								}}
 							</p>
 
-							<p>
+							<p class="ma-0">
 								{{ $t('products.dynamicCount', { count: product.count }) }}
 							</p>
 						</v-card-text>
 
 						<v-card-actions>
+							<v-spacer></v-spacer>
 							<v-add-product-to-cart
 								isEditable
 								@increment="handleProductIncrement(product)"

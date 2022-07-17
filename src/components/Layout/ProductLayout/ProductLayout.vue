@@ -8,18 +8,30 @@
 			</v-container>
 		</v-main>
 
-		<v-footer
-			class="white py-12 d-flex flex-column justify-center align-center"
-		>
-			<p class="text-subtitle1 text--secondary">
-				{{ $t('common.thankYouForPurchase') }}
-			</p>
+		<v-footer dark padless class="align-center">
+			<v-card class="flex" flat tile>
+				<v-card-title class="teal">
+					<strong class="subheading">
+						Get connected with us on social networks!
+					</strong>
 
-			<p class="text-body2 text--secondary">
-				Copyright ©
-				{{ $t('app.title') }}
-				{{ currentDate }}
-			</p>
+					<v-spacer></v-spacer>
+
+					<v-btn v-for="icon in icons" :key="icon" class="mx-4" dark icon>
+						<v-icon size="24px">
+							{{ icon }}
+						</v-icon>
+					</v-btn>
+				</v-card-title>
+				<v-card-text class="py-2 white--text text-center">
+					Copyright ©
+					{{ $t('app.title') }}
+					{{ currentDate }}
+				</v-card-text>
+				<v-card-text class="py-2 white--text text-center">
+					<v-app-version :value="appVersion" />
+				</v-card-text>
+			</v-card>
 		</v-footer>
 	</v-app>
 </template>
@@ -28,6 +40,9 @@
 import Vue from 'vue';
 
 import VProductHeader from './ui/ProductHeader.vue';
+import { VAppVersion } from '@/libs/version';
+
+const APP_VERSION = process.env.VUE_APP_VERSION;
 
 export default Vue.extend({
 	name: 'ProductLayout',
@@ -36,7 +51,9 @@ export default Vue.extend({
 	},
 	data: () => ({
 		currentDate: `${new Date().getFullYear()}.`,
+		appVersion: APP_VERSION,
+		icons: ['mdi-facebook', 'mdi-twitter', 'mdi-linkedin', 'mdi-instagram'],
 	}),
-	components: { VProductHeader },
+	components: { VProductHeader, VAppVersion },
 });
 </script>

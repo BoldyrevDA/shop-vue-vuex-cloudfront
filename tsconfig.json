@@ -12,12 +12,9 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "typeRoots": [
-      "./node_modules/vuetify/types"
-    ],
     "types": [
-      "webpack-env",
       "jest",
+      "webpack-env",
       "vuetify",
     ],
     "paths": {
