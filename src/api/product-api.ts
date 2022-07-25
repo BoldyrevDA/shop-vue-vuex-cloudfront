@@ -35,6 +35,12 @@ const deleteProductById = (id: string) => {
 	return axios.delete(`${API_PATHS.bff}/products/${id}`);
 };
 
+const createProduct = (newProduct: Omit<Product, 'id'>) => {
+	console.info(`POST createProduct: ${JSON.stringify(newProduct)}`);
+
+	return axios.post(`${API_PATHS.bff}/products`, newProduct);
+};
+
 const saveProduct = (productToSave: Product) => {
 	console.info(`PUT saveProduct: ${JSON.stringify(productToSave)}`);
 
@@ -47,4 +53,5 @@ export const productApi = {
 	fetchProducts,
 	fetchProductById,
 	saveProduct,
+	createProduct,
 };
