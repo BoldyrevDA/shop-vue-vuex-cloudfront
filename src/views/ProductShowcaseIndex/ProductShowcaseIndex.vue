@@ -1,6 +1,16 @@
 <template>
 	<div class="grey lighten-5 py-4">
-		<v-container>
+		<v-alert
+			class="mx-4"
+			v-if="error"
+			border="bottom"
+			colored-border
+			type="error"
+			elevation="2"
+		>
+			{{ error.name }}: {{ error.message }}
+		</v-alert>
+		<v-container v-else>
 			<v-row>
 				<v-col
 					sm="12"
@@ -88,6 +98,10 @@ export default Vue.extend({
 				.fetchAvailableProducts()
 				.then(products => {
 					this.products = products;
+					this.error = null;
+				})
+				.catch(e => {
+					this.error = e;
 				})
 				.finally(() => {
 					this.isFetching = false;

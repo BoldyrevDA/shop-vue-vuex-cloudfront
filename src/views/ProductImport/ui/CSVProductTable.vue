@@ -4,6 +4,7 @@
 		:items="products"
 		:items-per-page="10"
 		:loading="isFetching"
+		:no-data-text="noDataText"
 		item-key="id"
 		class="elevation-1"
 	>
@@ -32,23 +33,25 @@
 				</td>
 
 				<td>
-					<v-btn
-						class="mr-1"
-						color="primary"
-						small
-						:to="`/admin/product-form/${item.id}`"
-					>
-						{{ $t('common.manage') }}
-					</v-btn>
+					<div class="d-flex">
+						<v-btn
+							class="mr-1"
+							color="primary"
+							small
+							:to="`/admin/product-form/${item.id}`"
+						>
+							{{ $t('common.manage') }}
+						</v-btn>
 
-					<v-btn
-						class="ml-1"
-						color="error"
-						@click="deleteProduct(item.id)"
-						small
-					>
-						{{ $t('common.delete') }}
-					</v-btn>
+						<v-btn
+							class="ml-1"
+							color="error"
+							@click="deleteProduct(item.id)"
+							small
+						>
+							{{ $t('common.delete') }}
+						</v-btn>
+					</div>
 				</td>
 			</tr>
 		</template>
@@ -78,6 +81,7 @@ export default Vue.extend({
 	props: {
 		products: Array as PropType<Product[]>,
 		isFetching: Boolean,
+		noDataText: String,
 	},
 	data() {
 		const headerTitle = (textId: string, value: string) => ({

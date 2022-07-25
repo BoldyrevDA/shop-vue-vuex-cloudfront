@@ -6,10 +6,10 @@
 			</h5>
 
 			<v-csv-file-uploader :url="uploaderS3Url"></v-csv-file-uploader>
-
 			<v-csv-product-table
 				:products="products"
 				:isLoading="isFetching"
+				:no-data-text="noDataText"
 				@delete-product="deleteProduct"
 			></v-csv-product-table>
 		</v-container>
@@ -35,9 +35,17 @@ export default Vue.extend({
 		return {
 			products: [] as Product[],
 			isFetching: false,
+			error: null as any,
 
 			uploaderS3Url: `${API_PATHS.import}/import`,
 		};
+	},
+	computed: {
+		noDataText(): string | undefined {
+			return this.error
+				? `${this.error?.name}: ${this.error.message}`
+				: undefined;
+		},
 	},
 	created() {
 		this.fetchProducts();
@@ -50,6 +58,10 @@ export default Vue.extend({
 				.fetchProducts()
 				.then((items: Product[]) => {
 					this.products = items;
+					this.error = null;
+				})
+				.catch(e => {
+					this.error = e;
 				})
 				.finally(() => {
 					this.isFetching = false;
