@@ -17,7 +17,7 @@
 					:label="$t('products.title')"
 					name="title"
 					v-model="title"
-					:rules="validationRules"
+					:rules="[rules.required]"
 				></v-text-field>
 			</v-col>
 
@@ -26,7 +26,6 @@
 					:label="$t('products.description')"
 					name="description"
 					v-model="description"
-					:rules="validationRules"
 				></v-text-field>
 			</v-col>
 
@@ -36,7 +35,7 @@
 					:label="$t('products.price')"
 					name="price"
 					v-model="price"
-					:rules="validationRules"
+					:rules="[rules.required, rules.positive]"
 				></v-text-field>
 			</v-col>
 
@@ -46,7 +45,7 @@
 					name="count"
 					:label="$t('products.count')"
 					v-model="count"
-					:rules="validationRules"
+					:rules="[rules.required, rules.positive, rules.integer]"
 				></v-text-field>
 			</v-col>
 
@@ -75,6 +74,9 @@ import { Product } from '@/models/product';
 type VuetifyFormElement = Vue & { validate(): void };
 // TODO: common validation rules
 const required = (v: string) => !!v || 'Field is required';
+const positive = (v: string) => +v >= 0 || 'Should be positive number';
+const integer = (v: string) =>
+	Number.isInteger(+v) || 'Should be integer number';
 
 export default Vue.extend({
 	props: {
@@ -84,7 +86,11 @@ export default Vue.extend({
 	},
 	data: () => ({
 		valid: true,
-		validationRules: [required],
+		rules: {
+			required,
+			positive,
+			integer,
+		},
 		//
 		title: '',
 		description: '',
@@ -125,8 +131,8 @@ export default Vue.extend({
 			this.$emit('submit', {
 				title: this.title,
 				description: this.description,
-				count: this.count,
-				price: this.price,
+				count: +this.count,
+				price: +this.price,
 			});
 		},
 		handleFormReset() {
